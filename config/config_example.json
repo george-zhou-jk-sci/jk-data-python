@@ -1,0 +1,7 @@
+{
+                "user": "dbuser",
+                "password": "dbpass",
+                "host": "dbhost",
+                "database": "db",
+                "raise_on_warnings": true
+            }

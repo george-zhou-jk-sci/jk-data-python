@@ -186,7 +186,7 @@ def run_alfa():
             with mysql.connector.connect(**config) as sql_conn:
                 # sku = pd.DataFrame(["B2349", "B2351"], columns=["SKU"])
                 sku_link = pd.read_sql("select id, ifnull(sku, 'N/A') as sku, ifnull(Link_Item, 'N/A') as sku_link from bide_list "
-                                  "where assigned = 0 and retrieved = 0 order by RAND() limit 1000", sql_conn)
+                                  "where assigned = 0 and retrieved = 0 order by RAND() limit 10", sql_conn)
                 # sku_link = pd.DataFrame({"id":sku["id"], "sku_link":"https://www.tcichemicals.com/US/en/p/" + sku["SKU"]}, columns=["id","sku_link"])
                 # sku_link = pd.read_csv(Path(__file__).parent / "../Crawler_Website_Link/Alfa_Cat.csv", header=None)
                 # sku_link.rename(columns={0:"sku_link"}, inplace=True)

@@ -187,7 +187,7 @@ def run_alfa():
         # 3 - Block 3rd party images
         profile.set_preference("permissions.default.image", 2)
 
-        with open(Path(__file__).parent / "config/mysql_config.json", 'r') as config_file:
+        with open(Path(__file__).parent / "../config/mysql_config.json", 'r') as config_file:
 
             # parse file
             config = json.loads(config_file.read())

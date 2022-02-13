@@ -139,3 +139,6 @@ dmypy.json
 # configs
 config/mysql_config.json
 config/mysql_*
+
+# driver
+driver/

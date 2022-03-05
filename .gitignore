@@ -142,3 +142,4 @@ config/mysql_*
 
 # driver
 driver/
+utils/acs_cite_test.py

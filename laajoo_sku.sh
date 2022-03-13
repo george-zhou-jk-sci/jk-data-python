@@ -8,7 +8,7 @@ else
   if echo $repeat_num | egrep -q '^[0-9]+$'; then
     # $var is a number
     for (( i=0; i < $repeat_num; i++ )); do
-        python3 utils/laajoo_sku.py
+        python3 utils/laajoo_SKU.py
     done
   else
     # $var is not a number

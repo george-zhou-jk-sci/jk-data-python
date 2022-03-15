@@ -183,8 +183,8 @@ def run_alfa():
         fireFoxOptions = Options()
         fireFoxOptions.headless = True
         # fireFoxOptions.headless = False
-        # fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver")
-        fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver.exe")
+        fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver")
+        # fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver.exe")
 
         # profile = webdriver.FirefoxProfile()
         # 1 - Allow all images

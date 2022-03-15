@@ -186,11 +186,11 @@ def run_alfa():
         # fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver")
         fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver.exe")
 
-        profile = webdriver.FirefoxProfile()
+        # profile = webdriver.FirefoxProfile()
         # 1 - Allow all images
         # 2 - Block all images
         # 3 - Block 3rd party images
-        profile.set_preference("permissions.default.image", 2)
+        # profile.set_preference("permissions.default.image", 2)
 
         with open(Path(__file__).parent / "../config/mysql_config_chem_pricing_stg.json", 'r') as config_file:
 
@@ -205,8 +205,9 @@ def run_alfa():
         with webdriver.Firefox(
                 # executable_path=Path(__file__).parent / "../driver/geckodriver",
                 service=fireFoxService,
-                options=fireFoxOptions,
-                firefox_profile=profile) as browser:
+                options=fireFoxOptions#,
+                # firefox_profile=profile
+        ) as browser:
             browser.set_page_load_timeout(30)
             browser.implicitly_wait(10)
             with mysql.connector.connect(**config) as sql_conn:

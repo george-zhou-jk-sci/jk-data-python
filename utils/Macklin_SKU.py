@@ -7,6 +7,7 @@ import time
 from selenium import webdriver
 from pathlib import Path
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -16,6 +17,8 @@ import random
 import json
 import mysql.connector
 from mysql.connector import errorcode
+import random
+from sqlalchemy import create_engine
 
 # def refresh(driver):
 #     try:
@@ -180,6 +183,8 @@ def run_alfa():
         fireFoxOptions = Options()
         fireFoxOptions.headless = True
         # fireFoxOptions.headless = False
+        # fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver")
+        fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver.exe")
 
         profile = webdriver.FirefoxProfile()
         # 1 - Allow all images
@@ -187,13 +192,19 @@ def run_alfa():
         # 3 - Block 3rd party images
         profile.set_preference("permissions.default.image", 2)
 
-        with open(Path(__file__).parent / "../config/mysql_config.json", 'r') as config_file:
+        with open(Path(__file__).parent / "../config/mysql_config_chem_pricing_stg.json", 'r') as config_file:
 
             # parse file
             config = json.loads(config_file.read())
+            user = config['user']
+            password = config['password']
+            host = config['host']
+            database = config['database']
+            sql_conn_df = create_engine(f"mysql+mysqlconnector://{user}:{password}@{host}/{database}")
 
         with webdriver.Firefox(
-                executable_path=Path(__file__).parent / "../driver/geckodriver",
+                # executable_path=Path(__file__).parent / "../driver/geckodriver",
+                service=fireFoxService,
                 options=fireFoxOptions,
                 firefox_profile=profile) as browser:
             browser.set_page_load_timeout(30)
@@ -201,7 +212,7 @@ def run_alfa():
             with mysql.connector.connect(**config) as sql_conn:
                 # sku = pd.DataFrame(["B2349", "B2351"], columns=["SKU"])
                 sku_link = pd.read_sql("select id, ifnull(sku, 'N/A') as sku, ifnull(link_sku, 'N/A') as sku_link from  macklin_list "
-                                  "where assigned = 0 and retrieved = 0 order by RAND() limit 3000", sql_conn)
+                                  "where assigned = 0 and retrieved = 0 order by RAND() limit 10", sql_conn_df)
                 # sku_link = pd.DataFrame({"id":sku["id"], "sku_link":"https://www.tcichemicals.com/US/en/p/" + sku["SKU"]}, columns=["id","sku_link"])
                 # sku_link = pd.read_csv(Path(__file__).parent / "../Crawler_Website_Link/Alfa_Cat.csv", header=None)
                 # sku_link.rename(columns={0:"sku_link"}, inplace=True)

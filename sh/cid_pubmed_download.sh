@@ -58,11 +58,11 @@ else
             export URL="https://pubchem.ncbi.nlm.nih.gov/sdq/sdqagent.cgi?infmt=json&outfmt=json&query={%22download%22:%22*%22,%22collection%22:%22pubmed%22,%22where%22:{%22ands%22:[{%22cid%22:%22$CID%22},{%22pmidsrcs%22:%22xref%22}]},%22order%22:[%22articlepubdate,desc%22],%22start%22:1,%22limit%22:10000000,%22downloadfilename%22:%22CID_$CID%22}"
             
             wget -O $DATA/$FILENAME $URL >> $LOG_FILE
-            sleeep 5
+            sleep 5
             aws s3 cp $DATA/$FILENAME s3://jk-data-files/pubmed_cid/raw/
             mysql -h $mysql_server -D pubmed_stg --skip-column-names -e "update ${table_name} set retrieved=1 where cid=${CID};"
         done
-        rm data/*.json
+        rm $DATA/*.json
    done
   else
     # $var is not a number

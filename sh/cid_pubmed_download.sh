@@ -62,7 +62,7 @@ else
             aws s3 cp $DATA/$FILENAME s3://jk-data-files/pubmed_cid/raw/
             mysql -h $mysql_server -D pubmed_stg --skip-column-names -e "update ${table_name} set retrieved=1 where cid=${CID};"
         done
-        rm $DATA/*.json
+        find $DATA -type f -name "*.json" -exec rm -f {} \;
    done
   else
     # $var is not a number

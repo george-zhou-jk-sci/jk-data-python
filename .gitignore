@@ -149,4 +149,4 @@ log/*.csv
 log/*.txt
 
 #sh temp data
-sh/data/*
+sh/data/*.json

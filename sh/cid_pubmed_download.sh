@@ -1,5 +1,5 @@
 #/bin/bash
-. ../config/mysql_conf.sh 
+#. ../config/mysql_conf.sh
 export HOME2=`pwd`
 export PROCESS="get_cid_pubmend_json"
 export DATA="$HOME2/data"

@@ -61,6 +61,7 @@ else
             sleep 5
             aws s3 cp $DATA/$FILENAME s3://jk-data-files/pubmed_cid/raw/
             mysql -h $mysql_server -D pubmed_stg --skip-column-names -e "update ${table_name} set retrieved=1 where cid=${CID};"
+            mysql -h $mysql_server -D pubmed_stg --skip-column-names -e "insert into cid_pubmed_json_raw (json_string) values ('`cat ${DATA}/${FILENAME}`');"
         done
         find $DATA -type f -name "*.json" -exec rm -f {} \;
    done

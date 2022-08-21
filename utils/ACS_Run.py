@@ -33,7 +33,7 @@ with open(Path(__file__).parent / "../config/mysql_config_acs_stg.json", 'r') as
     fireFoxOptions.headless = True
     # fireFoxOptions.headless = False
     # path = Path(__file__).parent / "../driver/geckodriver.exe"
-    fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver.exe")
+    # fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver.exe")
     fireFoxService = Service(Path(__file__).parent / "../driver/geckodriver")
     with webdriver.Firefox(
             # executable_path=Path(__file__).parent / "../driver/geckodriver.exe",

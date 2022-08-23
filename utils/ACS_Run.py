@@ -85,7 +85,7 @@ with open(Path(__file__).parent / "../config/mysql_config_acs_stg.json", 'r') as
                     if re.match('http', URL):
                         # page=requests.get(URL)
                         firefox_browser.get(URL)
-                        time.sleep(int(random.random() * 10))
+                        time.sleep(int(random.random() * 30))
                         html = firefox_browser.page_source
                         soup = BeautifulSoup(html, 'html.parser')
 

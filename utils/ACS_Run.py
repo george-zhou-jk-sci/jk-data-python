@@ -139,7 +139,10 @@ with open(Path(__file__).parent / "../config/mysql_config_acs_stg.json", 'r') as
                                                         temp.append(str(address_elem_each.text.replace("\'", "\'\'")))
                                                     else:
                                                         temp.append(" ")
-                                            author_result = author_result.append(pd.Series(temp).astype(str), ignore_index=True)
+                                            # author_result = author_result.append(pd.Series(temp).astype(str), ignore_index=True)
+                                            author_result = pd.concat(
+                                                [author_result, pd.Series(temp).astype(str).to_frame().T],
+                                                ignore_index=True)
 
                         else:
                             author_elems = soup.find_all('span', class_='hlFld-ContribAuthor')
@@ -159,7 +162,10 @@ with open(Path(__file__).parent / "../config/mysql_config_acs_stg.json", 'r') as
                                  #   author_elem.string.insert_after(tag)
                                  #   temp.append(author_elem.text)
                                  #   print(author_infos, end='\n'*2)
-                                    author_result=author_result.append(pd.Series(temp).astype(str), ignore_index=True)
+                                 #    author_result=author_result.append(pd.Series(temp).astype(str), ignore_index=True)
+                                    author_result = pd.concat([author_result, pd.Series(temp).astype(str).to_frame().T], ignore_index=True)
+
+
                             else:
                                 address_elems = soup.find_all('span', class_='aff-text')
                                 #result=result.append([1])
@@ -175,13 +181,15 @@ with open(Path(__file__).parent / "../config/mysql_config_acs_stg.json", 'r') as
                                             temp.append(str(address_elem.text.replace("\'", "\'\'")))
                                         else:
                                             temp.append(" ")
-                                    author_result=author_result.append(pd.Series(temp).astype(str), ignore_index=True)
+                                    # author_result=author_result.append(pd.Series(temp).astype(str), ignore_index=True)
+                                    author_result = pd.concat([author_result, pd.Series(temp).astype(str).to_frame().T],
+                                                              ignore_index=True)
 
 
 
 
                         #print(author_elems)
-                        #print(author_result)
+                        # print(author_result)
                         #print(len(temp))
                         if not soup.find('div', class_='article_header-cite-this') == None:
                             cite=soup.find('div', class_='article_header-cite-this').text.replace("\'", "\'\'")
